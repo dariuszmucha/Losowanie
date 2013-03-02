@@ -20,6 +20,7 @@ public:
 ref class DrawClass
 {
 private:
+	int playersNumberMin;
 	int playersNumber;
 	Random myRandom;
 	int *drawnPlayers;
@@ -28,7 +29,8 @@ public:
 	
 	DrawClass(void);
 	~DrawClass();
-	void setPlayersNumber(int count);
+	int setPlayersMinNumber(int min);
+	int setPlayersMaxNumber(int max);
 	int getPlayersNumber( );
 	int drawPlayer1( );
 	int drawPlayer2( );

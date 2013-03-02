@@ -20,9 +20,24 @@ DrawClass::~DrawClass()
 	delete [] drawnPlayers;
 }
 
-void DrawClass::setPlayersNumber(int count)
+int DrawClass::setPlayersMinNumber(int min)
 {
-	playersNumber = count;
+	if(min < playersNumber)
+	{
+		playersNumberMin = min;
+		return 0;
+	}
+	return playersNumberMin;
+}
+
+int DrawClass::setPlayersMaxNumber(int max)
+{
+	if(max > playersNumberMin)
+	{
+		playersNumber = max;
+		return 0;
+	}
+	return playersNumber;
 }
 
 int DrawClass::getPlayersNumber( )
@@ -35,7 +50,7 @@ int DrawClass::drawPlayer1( )
 	int player;
 	do
 	{
-		player = myRandom.Next(1,playersNumber+1);
+		player = myRandom.Next(playersNumberMin,playersNumber+1);
 	} while(drawnPlayers[player]);
 	return player;
 }
@@ -46,7 +61,7 @@ int DrawClass::drawPlayer2( )
 
 	do
 	{
-		player = myRandom.Next(1,playersNumber+1);
+		player = myRandom.Next(playersNumberMin,playersNumber+1);
 	} while(drawnPlayers[player]);
 
 	return player;
@@ -72,8 +87,8 @@ void DrawClass::addPlayers(int source, int value)
 
 bool DrawClass::isPossibleToDraw()
 {
-	int possibleDraws = playersNumber%2 ? playersNumber-1 : playersNumber;
-	if(playerListElement < possibleDraws)
+	int possibleDraws = playersNumber - playersNumberMin;
+	if(playerListElement <= possibleDraws)
 	{
 		return true;
 	}
